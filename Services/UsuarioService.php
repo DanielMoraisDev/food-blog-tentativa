@@ -8,7 +8,7 @@ class UsuarioService
 	private $connection;
 	private $usuario;
 
-	public function __construct(Connection $connection, ?Usuario $usuario = null)
+	public function __construct(Connection $connection, Usuario $usuario)
 	{
 		$this->connection = $connection->connect();
 
@@ -21,9 +21,9 @@ class UsuarioService
 
 	public function getData()
 	{
-		$query = 'SELECT u.nickname, u.nome, u.id, u.foto FROM usuarios AS u WHERE nickname = :id GROUP BY u.id';
+		$query = 'SELECT u.nickname, u.nome, u.id_usuario, u.foto FROM usuarios AS u WHERE nickname = :id_usuario GROUP BY u.id_usuario';
 		$stmt = $this->connection->prepare($query);
-		$stmt->bindValue('id', $this->usuario->__get('id'));
+		$stmt->bindValue('id_usuario', $this->usuario->__get('id_usuario'));
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}

@@ -2,6 +2,7 @@
 require_once './config.php';
 require_once './Controller/empresa_controller.php';
 require_once './Controller/publicacao_controller.php';
+require_once './Controller/usuario_controller.php';
 ?>
 
 <!doctype html>
@@ -61,22 +62,35 @@ require_once './Controller/publicacao_controller.php';
 	<?php ?>
 	<main>
 		<section class="statistics">
-			<img class="logo-enterprise" src="./Assets/logo/<?= $empresa[0]['logo'] ?>" alt="">
-			<p class="name-enterprise"><?= $empresa[0]['nome'] ?></p>
+			<?php if (!isset($_SESSION['nickname'])) { ?>
+				<img class="photo-user" src="./Assets/logo/<?= $empresa[0]['logo'] ?>" alt="">
+			<?php } else { ?>
+				<img class="photo-user" src="./Assets/foto_usuario/<?= $usuario[0]['foto'] ?>" alt="">
+			<?php } ?>
+
+			<?php if (!isset($_SESSION['nickname'])) { ?>
+				<p class="name-user"><?= $empresa[0]['nome'] ?></p>
+			<?php } else { ?>
+				<p class="name-user"><?= $usuario[0]['nome'] ?></p>
+			<?php } ?>
 
 		</section>
 		<section class="publications">
 			<h1>Publicações</h1>
 			<div class="posts">
-				<?php foreach ($publicacoes as $publicacao) { ?>
-					<article class="post">
-						<h2><?= $publicacao['titulo_prato'] ?></h2>
-						<img src="./Assets/publicacao/<?= $publicacao['foto'] ?>" alt="">
-						<div class="location">
-							<p><?= $publicacao['local'] ?></p>
-							<p><?= $publicacao['cidade'] ?></p>
-						</div>
-					</article>
+				<?php if (isset($_GET['post'])) { ?>
+					<h3>Em breve. Sistema de visualizar publicacao.</h3>
+				<?php } else { ?>
+					<?php foreach ($publicacoes as $publicacao) { ?>
+						<article class="post">
+							<h2><?= $publicacao['titulo_prato'] ?></h2>
+							<img src="./Assets/publicacao/<?= $publicacao['foto'] ?>" alt="">
+							<div class="location">
+								<p><?= $publicacao['local'] ?></p>
+								<p><?= $publicacao['cidade'] ?></p>
+							</div>
+						</article>
+					<?php } ?>
 				<?php } ?>
 			</div>
 		</section>

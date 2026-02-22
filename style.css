@@ -20,11 +20,11 @@ main > .statistics {
   max-width: 25%;
 }
 
-.statistics > .logo-enterprise {
+.statistics > .photo-user {
   width: 50%;
 }
 
-.statistics > .name-enterprise {
+.statistics > .name-user {
   text-align: center;
   font-weight: 600;
   font-size: 1.75rem;
@@ -40,6 +40,7 @@ main > .publications {
   gap: 0.25rem;
   border-left: 2px solid #c2bebe;
   border-right: 2px solid #c2bebe;
+  border-bottom: 2px solid #c2bebe;
   min-width: 50%;
   max-width: 50%;
   margin-bottom: 15px;
@@ -55,8 +56,8 @@ main > .publications {
 }
 
 .posts > .post {
-  width: 100%;
   border-bottom: 2px solid #c2bebe;
+  width: 100%;
   padding: 5px;
   gap: 0.25rem;
 }
