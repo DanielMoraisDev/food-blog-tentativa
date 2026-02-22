@@ -18,7 +18,47 @@ require_once './Controller/publicacao_controller.php';
 
 </head>
 
+<script>
+	const loginShow = () => {
+		event?.preventDefault();
+		const modalLogin = document.querySelector('.modal_login');
+		const modalOverlay = document.querySelector('.modal_overlay');
+
+		modalLogin.classList.toggle('active');
+		modalOverlay.classList.toggle('active');
+	}
+</script>
+
+<?php if (isset($_SESSION['login_error'])) {
+	$loginErromsg = $_SESSION['login_error'];
+?>
+	<script>
+		window.addEventListener('DOMContentLoaded', () => {
+			loginShow();
+		});
+	</script>
+<?php unset($_SESSION['login_error']);
+} ?>
+
 <body>
+	<div class="modal_overlay"></div>
+	<?php if (!isset($_SESSION['nickname'])) ?>
+
+	<div class="modal_login">
+		<h1>Login</h1>
+		<form action="login.php" method="post">
+			<input type="text" placeholder="Digite seu nome" name="nickname">
+			<input type="password" placeholder="Digite sua senha" name="senha">
+			<div>
+				<button onclick="loginShow()">Cancelar</button>
+				<button type="submit">Entrar</button>
+			</div>
+			<?php if (isset($loginErromsg)) { ?>
+				<p>Erro: Usuário ou senha incorretos</p>
+			<?php } ?>
+		</form>
+	</div>
+	<?php ?>
 	<main>
 		<section class="statistics">
 			<img class="logo-enterprise" src="./Assets/logo/<?= $empresa[0]['logo'] ?>" alt="">
@@ -41,7 +81,11 @@ require_once './Controller/publicacao_controller.php';
 			</div>
 		</section>
 		<section class="user-auth">
-			<button class="btn-auth">Entrar</button>
+			<?php if (!isset($_SESSION['nickname'])) { ?>
+				<button onclick="loginShow()" class="btn-auth">Login</button>
+			<?php } else { ?>
+				<button onclick="window.location.href='logout.php'" class="btn-auth">Sair</button>
+			<?php } ?>
 		</section>
 	</main>
 	<footer>
